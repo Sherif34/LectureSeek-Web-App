@@ -1,0 +1,109 @@
+# LectureSeek
+
+A proposed platform for turning recorded lectures into searchable, interactive study material.
+
+LectureSeek connects lecture video with timestamped transcripts, slides, chapters, summaries, quizzes, translation, and dubbed audio. It is designed for students who want to find and review explanations efficiently, and instructors who want to prepare structured learning resources and assessments.
+
+**Project stage:** requirements analysis and feature design. This repository currently contains project documents and UML artifacts, rather than a runnable web application.
+
+## Product scope
+
+The following capabilities are defined in the requirements and design documents. They describe intended behavior, not a list of implemented features.
+
+| Area | Intended capabilities |
+| --- | --- |
+| Lecture library | Upload recordings, import supported video URLs, organize owned lectures, and control access and visibility. |
+| Playback and navigation | Control playback, resume viewing, and navigate using timestamps, transcript passages, topics, and slides. |
+| Speech transcription | Generate timestamped text, review and correct transcripts, search passages, and monitor processing status. |
+| Visual processing | Detect and review slide changes, extract slide text, and associate visual content with the lecture timeline. |
+| Summaries | Generate full-lecture or section summaries using transcript and slide content, with supported model selection. |
+| Quizzes and feedback | Create official and personal quizzes, associate questions with lecture sections, evaluate answers, and provide feedback. Instructors can configure mandatory checkpoints and retry rules. |
+| Translation | Translate supported lecture resources while retaining their relationship to the original content. |
+| Dubbing | Generate translated speech for a lecture or selected section, synchronize playback, switch audio languages, and manage personal dubbed versions. |
+| Personal study tools | Save notes and bookmarks, track activity, manage revision resources, and capture and edit selected video frames. |
+
+### Users and permissions
+
+- **Shared user capabilities:** account access, accessible lecture browsing, playback, transcript interaction, uploads/imports, and management of owned resources.
+- **Instructors:** prepare and review lecture resources, manage publication, configure assessments, and review authorized results.
+- **Students:** study accessible lectures, generate personal resources, complete assessments, and manage their own notes, quizzes, and dubbed audio.
+
+Resource ownership, lecture visibility, and role permissions determine which operations are available. Personal study resources remain separate from official instructor-published material.
+
+## Documentation
+
+### Requirements and analysis
+
+| Document | Contents |
+| --- | --- |
+| [Problem Definition 0.1](LectureSeek%20ProblemDefiniton%200.1.docx) | Problem statement, target users, limitations of existing approaches, and project objectives. |
+| [User Stories 0.2](LectureSeek%20User%20Stories%200.2.docx) | Shared, instructor, and student stories with acceptance criteria. |
+| [Software Requirements Specification 0.1](LectureSeek%20SRS%200.1.docx) | Functional requirements, quality requirements, technical constraints, and unresolved decisions. |
+| [Use Case Analysis and Diagram 0.1](LecureSeek%20Use%20Case%20logs/LectureSeek%20Use%20Case%20Analysis%20%26%20Diagram%200.1.docx) | Actors, 32 high-level use cases, detailed mappings, UML relationships, traceability, and assumptions. |
+
+### Feature reports and designs
+
+| Document | Contents |
+| --- | --- |
+| [Speech Transcription Report 0.1](Speech%20Transcription%20Report%200.1.docx) | Transcription approaches, processing flow, timing and persistence, and a proposed accuracy-evaluation protocol. |
+| [Visual Processing Report 0.1](LectureSeek%20Visual%20Processing%20Report%200.1.docx) | Slide detection, text extraction, timestamped visual information, transcript alignment, and evaluation planning. |
+| [Quiz Generation Design 0.1](LectureSeek%20Quiz%20Generation%20Design%200.1.docx) | Scope-based question generation, validation, answer evaluation, proposed APIs, and implementation planning. |
+| [Dubbing Report 0.1](LectureSeek%20Dubbing%20report%200.1.docx) | Translated speech generation, timing, audio mixing, section selection, player integration, personal versions, and acceptance checks. |
+
+Some technical reports describe an existing toolkit or a separately reviewed source checkout. Those descriptions provide design context; the referenced application code, tests, and runtime dependencies are not included in this repository. Proposed APIs and model recommendations should be read in that context. The transcription report does not report completed comparative accuracy benchmarks.
+
+## Suggested reading order
+
+1. Read the **Problem Definition** for the motivation and target users.
+2. Review **User Stories** for expected behavior and acceptance criteria.
+3. Use the **SRS** to inspect formal requirements and constraints.
+4. Review the **Use Case Analysis** and diagram for actor responsibilities and traceability.
+5. Read the relevant **feature report** for processing details, trade-offs, and evaluation plans.
+
+The requirements documents and feature reports serve different purposes. Review their assumptions and open decisions together before treating a design detail as a finalized requirement.
+
+## UML use case diagram
+
+![LectureSeek UML use case diagram](LecureSeek%20Use%20Case%20logs/LecureSeek%20UML%20Use%20Case%20Diagram%200.1.drawio.png)
+
+- [Open the diagram image](LecureSeek%20Use%20Case%20logs/LecureSeek%20UML%20Use%20Case%20Diagram%200.1.drawio.png)
+- [Download the editable draw.io source](LecureSeek%20Use%20Case%20logs/LecureSeek%20UML%20Use%20Case%20Diagram%200.1.drawio)
+
+Open the editable source with [diagrams.net](https://app.diagrams.net/) to inspect or update the model. The diagram includes Student and Instructor actors, an abstract shared User role, and external video-source, media-processing, LLM, and translation services. Storage is modeled as an internal responsibility.
+
+## Repository structure
+
+```text
+.
+|-- README.md
+|-- LectureSeek ProblemDefiniton 0.1.docx
+|-- LectureSeek User Stories 0.2.docx
+|-- LectureSeek SRS 0.1.docx
+|-- Speech Transcription Report 0.1.docx
+|-- LectureSeek Visual Processing Report 0.1.docx
+|-- LectureSeek Quiz Generation Design 0.1.docx
+|-- LectureSeek Dubbing report 0.1.docx
+`-- LecureSeek Use Case logs/
+    |-- LectureSeek Use Case Analysis & Diagram 0.1.docx
+    |-- LecureSeek UML Use Case Diagram 0.1.drawio
+    `-- LecureSeek UML Use Case Diagram 0.1.drawio.png
+```
+
+File names above match the current repository, including their existing spelling.
+
+## Working with this repository
+
+Browse the documents on GitHub or download the repository. Use a compatible Word document viewer to read the `.docx` files, an image viewer for the diagram preview, and diagrams.net for the editable UML source.
+
+There is currently no application installation, server startup command, dependency manifest, or automated test suite in this repository. Runtime setup instructions should be added alongside the application source when implementation is introduced.
+
+When proposing documentation changes:
+
+- Identify the affected user stories and acceptance criteria.
+- Keep the SRS, use case analysis, diagrams, and feature reports consistent.
+- Distinguish proposed behavior from implemented or experimentally verified behavior.
+- Update document versions and README links when files are renamed or replaced.
+
+## Implementation planning
+
+The documents provide a basis for agreeing the scope, resolving permissions and integration decisions, selecting providers and deployment options, and planning implementation. Quality targets and evaluation plans still require validation on representative lecture material. Consult the individual reports for their proposed stages and open questions.
