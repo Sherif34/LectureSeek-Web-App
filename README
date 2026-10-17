@@ -1,109 +1,87 @@
 # LectureSeek
 
-A proposed platform for turning recorded lectures into searchable, interactive study material.
+LectureSeek is a proposed learning platform that helps students study recorded lectures and helps instructors prepare lecture resources. The project explores connecting video playback with transcripts, slides, chapters, summaries, quizzes, translation, dubbed audio, and personal study tools.
 
-LectureSeek connects lecture video with timestamped transcripts, slides, chapters, summaries, quizzes, translation, and dubbed audio. It is designed for students who want to find and review explanations efficiently, and instructors who want to prepare structured learning resources and assessments.
+> **Project status:** This repository is currently a requirements and architecture documentation workspace. It does not contain a complete, runnable LectureSeek application. Capabilities described here are proposed or specified behavior unless a document explicitly reports an implemented experiment.
 
-**Project stage:** requirements analysis and feature design. This repository currently contains project documents and UML artifacts, rather than a runnable web application.
+## Start here
 
-## Product scope
+For a quick introduction, read these in order:
 
-The following capabilities are defined in the requirements and design documents. They describe intended behavior, not a list of implemented features.
+1. [Problem definition](docs/requirements/lectureseek-problem-definition.docx) — the problem, users, and project goals.
+2. [Software Requirements Specification](<LectureSeek Software Requirements Specification Draft.docx>) — functional requirements, constraints, and open decisions.
+3. [Revised user stories](<LectureSeek User Stories Revised.docx>) — expected behavior and acceptance criteria for Students and Instructors.
+4. [Confirmed high-level use-case analysis](<LectureSeek_Use_Case_Analysis_Confirmed_Actors.docx>) — actors, 32 high-level use cases (HL-01 to HL-32), traceability, and modeling decisions.
 
-| Area | Intended capabilities |
-| --- | --- |
-| Lecture library | Upload recordings, import supported video URLs, organize owned lectures, and control access and visibility. |
-| Playback and navigation | Control playback, resume viewing, and navigate using timestamps, transcript passages, topics, and slides. |
-| Speech transcription | Generate timestamped text, review and correct transcripts, search passages, and monitor processing status. |
-| Visual processing | Detect and review slide changes, extract slide text, and associate visual content with the lecture timeline. |
-| Summaries | Generate full-lecture or section summaries using transcript and slide content, with supported model selection. |
-| Quizzes and feedback | Create official and personal quizzes, associate questions with lecture sections, evaluate answers, and provide feedback. Instructors can configure mandatory checkpoints and retry rules. |
-| Translation | Translate supported lecture resources while retaining their relationship to the original content. |
-| Dubbing | Generate translated speech for a lecture or selected section, synchronize playback, switch audio languages, and manage personal dubbed versions. |
-| Personal study tools | Save notes and bookmarks, track activity, manage revision resources, and capture and edit selected video frames. |
+The `docs/requirements/` folder also contains versioned copies of the initial requirements deliverables.
 
-### Users and permissions
+## Architecture and design
 
-- **Shared user capabilities:** account access, accessible lecture browsing, playback, transcript interaction, uploads/imports, and management of owned resources.
-- **Instructors:** prepare and review lecture resources, manage publication, configure assessments, and review authorized results.
-- **Students:** study accessible lectures, generate personal resources, complete assessments, and manage their own notes, quizzes, and dubbed audio.
+- [Level Zero architecture source](<LectureSeek Architecture Diagram level-0 0.1 - revised.drawio>) — system boundary, actors, interfaces, and external systems.
+- [Level One architecture source](<LectureSeek Architecture Diagram level-1 0.2.drawio>) — the Level Zero view expanded with proposed internal modules and their connections.
+- [Module design and responsibilities](<LectureSeek Level One Module Design.docx>) — proposed module boundaries, responsibilities, inputs, outputs, and AI handoffs.
+- [Module to high-level use-case mapping](<LectureSeek Module High-Level Functions.docx>) — maps HL-01 to HL-32 to the proposed modules.
+- [Interface and high-level use-case grouping](<LectureSeek Interfaces and High Level Use Cases.docx>) — an earlier grouping of use cases under proposed interfaces.
+- [Architecture planning notes](architecture_diagram_plan.md) — scope and decisions for the system-level diagram.
 
-Resource ownership, lecture visibility, and role permissions determine which operations are available. Personal study resources remain separate from official instructor-published material.
+Open `.drawio` files with [diagrams.net](https://app.diagrams.net/) to view or edit them. The Level One modules are architectural proposals, not confirmed software services.
 
-## Documentation
+### Proposed internal modules
 
-### Requirements and analysis
+The Level One design groups capabilities into ten modules:
 
-| Document | Contents |
-| --- | --- |
-| [Problem Definition 0.1](LectureSeek%20ProblemDefiniton%200.1.docx) | Problem statement, target users, limitations of existing approaches, and project objectives. |
-| [User Stories 0.2](LectureSeek%20User%20Stories%200.2.docx) | Shared, instructor, and student stories with acceptance criteria. |
-| [Software Requirements Specification 0.1](LectureSeek%20SRS%200.1.docx) | Functional requirements, quality requirements, technical constraints, and unresolved decisions. |
-| [Use Case Analysis and Diagram 0.1](LecureSeek%20Use%20Case%20logs/LectureSeek%20Use%20Case%20Analysis%20%26%20Diagram%200.1.docx) | Actors, 32 high-level use cases, detailed mappings, UML relationships, traceability, and assumptions. |
+1. Account & Access
+2. Lecture Library
+3. Transcript Processing
+4. Slide & Visual Processing
+5. Alignment & Chapters
+6. Search & Playback
+7. Learning Content
+8. Study & Assessment
+9. Translation & Dubbing
+10. Discussion & Issue Reporting
 
-### Feature reports and designs
+The module-to-use-case document is the detailed mapping reference. High-level functions remain identified by their `HL-` numbers so they can be traced to the use-case analysis.
 
-| Document | Contents |
-| --- | --- |
-| [Speech Transcription Report 0.1](Speech%20Transcription%20Report%200.1.docx) | Transcription approaches, processing flow, timing and persistence, and a proposed accuracy-evaluation protocol. |
-| [Visual Processing Report 0.1](LectureSeek%20Visual%20Processing%20Report%200.1.docx) | Slide detection, text extraction, timestamped visual information, transcript alignment, and evaluation planning. |
-| [Quiz Generation Design 0.1](LectureSeek%20Quiz%20Generation%20Design%200.1.docx) | Scope-based question generation, validation, answer evaluation, proposed APIs, and implementation planning. |
-| [Dubbing Report 0.1](LectureSeek%20Dubbing%20report%200.1.docx) | Translated speech generation, timing, audio mixing, section selection, player integration, personal versions, and acceptance checks. |
+### External services
 
-Some technical reports describe an existing toolkit or a separately reviewed source checkout. Those descriptions provide design context; the referenced application code, tests, and runtime dependencies are not included in this repository. Proposed APIs and model recommendations should be read in that context. The transcription report does not report completed comparative accuracy benchmarks.
+The architecture currently shows four external service categories: a video source platform, a media-processing service, a supported LLM service, and a translation service. The exact providers, APIs, deployment boundaries, and final integration contracts still need to be agreed. They should be treated as design dependencies, not as integrations that are already operational.
 
-## Suggested reading order
+## Feature and AI design reports
 
-1. Read the **Problem Definition** for the motivation and target users.
-2. Review **User Stories** for expected behavior and acceptance criteria.
-3. Use the **SRS** to inspect formal requirements and constraints.
-4. Review the **Use Case Analysis** and diagram for actor responsibilities and traceability.
-5. Read the relevant **feature report** for processing details, trade-offs, and evaluation plans.
+These reports provide design context for proposed capabilities:
 
-The requirements documents and feature reports serve different purposes. Review their assumptions and open decisions together before treating a design detail as a finalized requirement.
+- [Visual processing report](<LectureSeek Visual Processing Report Revised.docx>) — slide detection, OCR, timestamps, and visual-content handling.
+- [Quiz generation design](<LectureSeek_Quiz_Generation_Design_Revised.docx>) — quiz generation, review, and answer evaluation.
+- [Dubbing report](<LectureSeek Dubbing Revised.docx>) — translated speech, audio timing, and playback behavior.
+- [Original project document set](<LecureSeek-Web-App/README.md>) — earlier uploaded requirements and feature reports.
 
-## UML use case diagram
+Reports may describe proposals, evaluation plans, or prior source checkouts. Check each report’s scope before treating a recommendation or result as a project decision.
 
-![LectureSeek UML use case diagram](LecureSeek%20Use%20Case%20logs/LecureSeek%20UML%20Use%20Case%20Diagram%200.1.drawio.png)
-
-- [Open the diagram image](LecureSeek%20Use%20Case%20logs/LecureSeek%20UML%20Use%20Case%20Diagram%200.1.drawio.png)
-- [Download the editable draw.io source](LecureSeek%20Use%20Case%20logs/LecureSeek%20UML%20Use%20Case%20Diagram%200.1.drawio)
-
-Open the editable source with [diagrams.net](https://app.diagrams.net/) to inspect or update the model. The diagram includes Student and Instructor actors, an abstract shared User role, and external video-source, media-processing, LLM, and translation services. Storage is modeled as an internal responsibility.
-
-## Repository structure
+## Repository layout
 
 ```text
 .
-|-- README.md
-|-- LectureSeek ProblemDefiniton 0.1.docx
-|-- LectureSeek User Stories 0.2.docx
-|-- LectureSeek SRS 0.1.docx
-|-- Speech Transcription Report 0.1.docx
-|-- LectureSeek Visual Processing Report 0.1.docx
-|-- LectureSeek Quiz Generation Design 0.1.docx
-|-- LectureSeek Dubbing report 0.1.docx
-`-- LecureSeek Use Case logs/
-    |-- LectureSeek Use Case Analysis & Diagram 0.1.docx
-    |-- LecureSeek UML Use Case Diagram 0.1.drawio
-    `-- LecureSeek UML Use Case Diagram 0.1.drawio.png
+├── docs/requirements/              Versioned baseline requirements documents
+├── LecureSeek-Web-App/             Earlier uploaded project documents and logs
+├── LectureSeek High Level UML/     Use-case analysis, diagrams, and traceability files
+├── LectureSeek High Level UML Rebuilt/
+│                                   Rebuilt use-case analysis and diagram assets
+├── LectureSeek Architecture Diagram level-0 0.1 - revised.drawio
+├── LectureSeek Architecture Diagram level-1 0.2.drawio
+├── LectureSeek Level One Module Design.docx
+├── LectureSeek Module High-Level Functions.docx
+├── LectureSeek_Use_Case_Analysis_Confirmed_Actors.docx
+└── README.md
 ```
 
-File names above match the current repository, including their existing spelling.
+The workspace also includes diagram sources, rendered previews, QA outputs, and helper scripts used to prepare documentation. These are working artifacts; the linked documents above are the recommended starting points.
 
-## Working with this repository
+## Viewing and contributing
 
-Browse the documents on GitHub or download the repository. Use a compatible Word document viewer to read the `.docx` files, an image viewer for the diagram preview, and diagrams.net for the editable UML source.
+- Use a Word-compatible editor for `.docx` files.
+- Use diagrams.net for `.drawio` diagrams.
+- Keep requirements, use-case names and IDs, module assignments, and architecture diagrams consistent when changing project scope.
+- Mark proposed design decisions clearly and record unresolved permissions or integration questions before implementation.
 
-There is currently no application installation, server startup command, dependency manifest, or automated test suite in this repository. Runtime setup instructions should be added alongside the application source when implementation is introduced.
-
-When proposing documentation changes:
-
-- Identify the affected user stories and acceptance criteria.
-- Keep the SRS, use case analysis, diagrams, and feature reports consistent.
-- Distinguish proposed behavior from implemented or experimentally verified behavior.
-- Update document versions and README links when files are renamed or replaced.
-
-## Implementation planning
-
-The documents provide a basis for agreeing the scope, resolving permissions and integration decisions, selecting providers and deployment options, and planning implementation. Quality targets and evaluation plans still require validation on representative lecture material. Consult the individual reports for their proposed stages and open questions.
+There are no application installation steps, runtime commands, or automated tests documented for this repository because a complete application implementation is not included.
